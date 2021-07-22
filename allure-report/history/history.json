@@ -1,0 +1,64 @@
+{
+  "Prime.UnitTests.Services.PrimeService_IsPrimeShould.IsPrime_InputIs0_ReturnFalse" : {
+    "statistic" : {
+      "failed" : 0,
+      "broken" : 0,
+      "skipped" : 0,
+      "passed" : 2,
+      "unknown" : 0,
+      "total" : 2
+    },
+    "items" : [ {
+      "uid" : "828ba3c2b678d10e",
+      "reportUrl" : "http://localhost:8080/job/QuickApp/120/allure/#testresult/828ba3c2b678d10e",
+      "status" : "passed",
+      "statusDetails" : "",
+      "time" : {
+        "start" : 1626922095490,
+        "stop" : 1626922095507,
+        "duration" : 17
+      }
+    }, {
+      "uid" : "9c0e05fa345fe9d7",
+      "reportUrl" : "http://localhost:8080/job/QuickApp/119/allure/#testresult/9c0e05fa345fe9d7",
+      "status" : "passed",
+      "statusDetails" : "",
+      "time" : {
+        "start" : 1626914128894,
+        "stop" : 1626914128911,
+        "duration" : 17
+      }
+    } ]
+  },
+  "Prime.UnitTests.Services.PrimeService_IsPrimeShould.IsPrime_InputIs1_ReturnFalse" : {
+    "statistic" : {
+      "failed" : 0,
+      "broken" : 0,
+      "skipped" : 0,
+      "passed" : 2,
+      "unknown" : 0,
+      "total" : 2
+    },
+    "items" : [ {
+      "uid" : "118263cccad5adb8",
+      "reportUrl" : "http://localhost:8080/job/QuickApp/120/allure/#testresult/118263cccad5adb8",
+      "status" : "passed",
+      "statusDetails" : "",
+      "time" : {
+        "start" : 1626922095531,
+        "stop" : 1626922095531,
+        "duration" : 0
+      }
+    }, {
+      "uid" : "55321af7c393781f",
+      "reportUrl" : "http://localhost:8080/job/QuickApp/119/allure/#testresult/55321af7c393781f",
+      "status" : "passed",
+      "statusDetails" : "",
+      "time" : {
+        "start" : 1626914128935,
+        "stop" : 1626914128936,
+        "duration" : 1
+      }
+    } ]
+  }
+}

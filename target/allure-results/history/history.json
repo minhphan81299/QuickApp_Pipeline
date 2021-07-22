@@ -1,0 +1,44 @@
+{
+  "Prime.UnitTests.Services.PrimeService_IsPrimeShould.IsPrime_InputIs0_ReturnFalse" : {
+    "statistic" : {
+      "failed" : 0,
+      "broken" : 0,
+      "skipped" : 0,
+      "passed" : 1,
+      "unknown" : 0,
+      "total" : 1
+    },
+    "items" : [ {
+      "uid" : "9c0e05fa345fe9d7",
+      "reportUrl" : "http://localhost:8080/job/QuickApp/119/allure/#testresult/9c0e05fa345fe9d7",
+      "status" : "passed",
+      "statusDetails" : "",
+      "time" : {
+        "start" : 1626914128894,
+        "stop" : 1626914128911,
+        "duration" : 17
+      }
+    } ]
+  },
+  "Prime.UnitTests.Services.PrimeService_IsPrimeShould.IsPrime_InputIs1_ReturnFalse" : {
+    "statistic" : {
+      "failed" : 0,
+      "broken" : 0,
+      "skipped" : 0,
+      "passed" : 1,
+      "unknown" : 0,
+      "total" : 1
+    },
+    "items" : [ {
+      "uid" : "55321af7c393781f",
+      "reportUrl" : "http://localhost:8080/job/QuickApp/119/allure/#testresult/55321af7c393781f",
+      "status" : "passed",
+      "statusDetails" : "",
+      "time" : {
+        "start" : 1626914128935,
+        "stop" : 1626914128936,
+        "duration" : 1
+      }
+    } ]
+  }
+}

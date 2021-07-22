@@ -1,0 +1,12 @@
+{
+  "uuid": "71cc730f-bfa8-40dc-8fca-e37b3a784d29-Prime.UnitTests.Services.PrimeService_IsPrimeShould",
+  "name": "Prime.UnitTests.Services.PrimeService_IsPrimeShould",
+  "children": [
+    "84a93bba-9fc4-4cfd-a5e4-8f6ed2cb5f57-Prime.UnitTests.Services.PrimeService_IsPrimeShould.IsPrime_InputIs1_ReturnFalse"
+  ],
+  "befores": [],
+  "afters": [],
+  "links": [],
+  "start": 1626888386655,
+  "stop": 1626888386657
+}

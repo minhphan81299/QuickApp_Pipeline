@@ -1,0 +1,1 @@
+dotnet build QuickApp.sln --configuration Release

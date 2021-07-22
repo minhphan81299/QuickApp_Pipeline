@@ -1,0 +1,54 @@
+{
+  "uuid": "428c11be-6045-4828-b0eb-6bc17ed79f49-Prime.UnitTests.Services.PrimeService_IsPrimeShould.IsPrime_InputIs0_ReturnFalse",
+  "historyId": "Prime.UnitTests.Services.PrimeService_IsPrimeShould.IsPrime_InputIs0_ReturnFalse",
+  "fullName": "Prime.UnitTests.Services.PrimeService_IsPrimeShould.IsPrime_InputIs0_ReturnFalse",
+  "labels": [
+    {
+      "name": "thread",
+      "value": "18"
+    },
+    {
+      "name": "host",
+      "value": "ADMIN"
+    },
+    {
+      "name": "testClass",
+      "value": "Prime.UnitTests.Services.PrimeService_IsPrimeShould"
+    },
+    {
+      "name": "testMethod",
+      "value": "Prime.UnitTests.Services.PrimeService_IsPrimeShould.IsPrime_InputIs0_ReturnFalse"
+    },
+    {
+      "name": "package",
+      "value": "Prime.UnitTests.Services.PrimeService_IsPrimeShould"
+    },
+    {
+      "name": "severity",
+      "value": "critical"
+    },
+    {
+      "name": "subSuite",
+      "value": "check"
+    },
+    {
+      "name": "tag",
+      "value": "CI"
+    }
+  ],
+  "links": [],
+  "name": "Prime.UnitTests.Services.PrimeService_IsPrimeShould.IsPrime_InputIs0_ReturnFalse",
+  "status": "passed",
+  "statusDetails": {
+    "known": false,
+    "muted": false,
+    "flaky": false,
+    "message": ""
+  },
+  "stage": "finished",
+  "steps": [],
+  "attachments": [],
+  "parameters": [],
+  "start": 1626887543754,
+  "stop": 1626887543773
+}

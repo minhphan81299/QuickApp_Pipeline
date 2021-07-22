@@ -1,0 +1,54 @@
+version: '3.3'
+networks:
+  quickappprodnetss:
+    driver: bridge
+services:
+  db:
+    container_name: mssqlserver
+    networks:
+      - quickappprodnetss
+    image: 'mcr.microsoft.com/mssql/server'
+    environment:
+      SA_PASSWORD: 'Your_password123'
+      ACCEPT_EULA: 'Y'
+      MSSQL_PID: Express
+    ports:
+      - '1433:1433'
+  app:
+    depends_on:
+      - db
+    container_name: app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    networks:
+      - quickappprodnetss
+    restart: always
+    environment:
+      - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
+      - ${ConnectionStrings}
+      - ASPNETCORE_URLS=${ASPNETCORE_URLS}
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=minhphan
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/dev_cert.pfx
+    volumes:
+      - C:/Windows/conf.d/https/:/https/
+    ports:
+      - '5000:5000'
+      - '5001:5001'
+    # be:
+    #   networks:
+    #     - quickappprodnetss
+    #   build: .
+    #   volumes:
+    #     - C:/Windows/conf.d/https/:/https/
+    #   restart: always
+    #   environment:
+    #     - ASPNETCORE_ENVIRONMENT= Production
+    #     - ASPNETCORE_URLS=https://+;http://+
+    #     - ASPNETCORE_HTTPS_PORT=44350
+    #     - ASPNETCORE_Kestrel__Certificates__Default__Password=minhphan
+    #     - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/dev_cert.pfx
+    #     - ConnectionStrings=ConnectionStrings:DefaultConnection=Server=quickappdbProdss;Database=QuickAppdb;User Id=sa;Password=Your_password123;
+
+    #   depends_on:
+    #     - db

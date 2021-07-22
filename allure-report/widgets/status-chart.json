@@ -1,0 +1,21 @@
+[ {
+  "uid" : "118263cccad5adb8",
+  "name" : "Prime.UnitTests.Services.PrimeService_IsPrimeShould.IsPrime_InputIs1_ReturnFalse",
+  "time" : {
+    "start" : 1626922095531,
+    "stop" : 1626922095531,
+    "duration" : 0
+  },
+  "status" : "passed",
+  "severity" : "critical"
+}, {
+  "uid" : "828ba3c2b678d10e",
+  "name" : "Prime.UnitTests.Services.PrimeService_IsPrimeShould.IsPrime_InputIs0_ReturnFalse",
+  "time" : {
+    "start" : 1626922095490,
+    "stop" : 1626922095507,
+    "duration" : 17
+  },
+  "status" : "passed",
+  "severity" : "critical"
+} ]

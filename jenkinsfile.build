@@ -1,0 +1,137 @@
+pipeline {
+    agent any
+    environment {
+        BUILD_ID = "${env.BUILD_ID}";
+        BUILD_RELEASE = true;
+        WORKSPACE = "${env.WORKSPACE}";
+        VERSION = "0.1";
+        
+        DropFolder = "Dropfolder/$ProjectCode";
+        CLIENT_APP_PATH="${env.WORKSPACE}/QuickApp/ClientApp"
+        
+        NexusRepoURL = "localhost:8081";
+        NexusProtocol = "http";
+        NexusCredentialsId = "nexus_longg";
+        NexusVersion = "nexus3";
+        
+        GitcredentialsId = "${env.GitcredentialsId}";
+        
+        SonaQubeToken = credentials('SonaQube_token');
+        SonaQubeURL = "http://74.208.178.111:9000/";
+        
+        TARGET_ENVIRONMENT = params.TargetEnvironment.toLowerCase()
+
+        
+    }
+    parameters {
+        string(name: 'GitBranch', defaultValue: 'master', description: 'Git Branch')
+        string(name: 'TargetEnvironment', defaultValue: 'production', description: 'TargetEnvironment: Testing, Staging, Production')
+    }
+  stages {
+       stage('Checkout'){
+            steps{
+                git credentialsId: 'gitlab_account', url:'https://gitlab.com/baolong0/quickapp.git', branch:"$GitBranch"
+            }
+        }
+        stage('Build'){
+            steps{
+                    sh "dotnet restore QuickApp.sln"
+                    sh "dotnet build QuickApp.sln --configuration Release"
+            }
+        }
+        stage('Test'){
+            steps{
+                    sh "dotnet test QuickApp.sln -o target"      
+                }
+        }
+        stage("Publish"){
+            steps{
+                sh "zip -rq Docker.zip docker-compose.yml Dockerfile .docker" 
+                sh "dotnet publish QuickApp.sln --configuration Release --output $DropFolder/$BUILD_ID/WebApi"
+                    dir("$DropFolder/$BUILD_ID/WebApi") {
+                        sh "zip -rq WebApi.zip ./*"
+                         
+                    }
+                    nexusArtifactUploader artifacts: [
+                        [
+                                classifier: '',
+                                type: "zip",
+                                file: "$DropFolder/$BUILD_ID/WebApi/WebApi.zip",
+                                artifactId: "WebApi"
+                                                    ]
+                        ],
+                    nexusUrl: "$NexusRepoURL", nexusVersion: "$NexusVersion", protocol: "$NexusProtocol", credentialsId: "$NexusCredentialsId",repository: "quickapp",groupId: "QuickApp_BE",version: "$BUILD_NUMBER"
+                    nexusArtifactUploader artifacts: [
+                        [
+                                classifier: '',
+                                type: "zip",
+                                file: "Docker.zip",
+                                artifactId: "Docker"
+                                                    ]
+                        ],
+                    nexusUrl: "$NexusRepoURL", nexusVersion: "$NexusVersion", protocol: "$NexusProtocol", credentialsId: "$NexusCredentialsId",repository: "quickapp",groupId: "QuickApp_DOCKER",version: "$BUILD_NUMBER"
+                    sh " rm Docker.zip"                
+            }
+        }
+        stage("CI Tools"){
+            environment {
+            scannerHome = tool name: 'sonar',type : 'hudson.plugins.sonar.SonarRunnerInstallation'
+            }
+            steps {
+                 withSonarQubeEnv("SonaQube") {
+                     sh "${scannerHome}/bin/sonar-scanner\
+                     -D sonar.projectKey=$ProjectCode\
+                     -D sonar.sources=.\
+                     -D sonar.login=$SonaQubeToken\
+                     -D sonar.host.url=$SonaQubeURL\
+                     -D sonar.version=$VERSION.$BUILD_ID"
+                }
+            }
+        }
+        stage('reports') {
+            environment {
+                allure = tool name: 'allure'
+            }
+            steps {
+            script {
+                allure([
+                    includeProperties: false,
+                    jdk: '',
+                    properties: [],
+                    reportBuildPolicy: 'ALWAYS',
+                    results: [[path: 'target/allure-results']]
+            ])
+            }
+            }
+        }
+  /*      stage('Build client_app'){
+            steps{
+                dir("$CLIENT_APP_PATH"){
+                    sh "npm install"
+                    sh "node --max_old_space_size=8192 ./node_modules/@angular/cli/bin/ng build --prod"
+                    sh "zip -r ClientApp.zip dist/*"
+                    nexusArtifactUploader artifacts: [
+                        [
+                                classifier: '',
+                                type: "zip",
+                                file: "ClientApp.zip",
+                                artifactId: "ClientApp"
+                                                    ]
+                        ],
+                    nexusUrl: "$NexusRepoURL", nexusVersion: "$NexusVersion", protocol: "$NexusProtocol", credentialsId: "$NexusCredentialsId",repository: "quickapp",groupId: "QuickApp_FE",version: "$BUILD_NUMBER"
+                }
+            }
+        }
+        
+    */
+   /*     stage ('Deploy') {
+            steps {
+                    build job: "quickapp_deploy", wait: true, parameters: [
+                    string(name: 'BUILD_NUMBER', value: "$BUILD_NUMBER"),
+                    string(name: 'TargetEnvironment', value: "$TargetEnvironment")
+                    ]
+                }
+        }
+    */
+    }
+ }
